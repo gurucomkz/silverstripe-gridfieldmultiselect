@@ -8,9 +8,13 @@
  */
 (function($){
 	$.entwine('ss', function($) {
-        function setstate(el){
+        function setstate(el, el1){
+            if(typeof arguments[0] !== 'object') {
+                el = $(el1); //this is for when called via .each()
+            }
             var statestorage = el.parents('fieldset.grid-field').find('.gridstate');
-            var state = JSON.parse(statestorage.attr('value'));
+            var statestorageValue = statestorage.attr('value');
+            var state = JSON.parse(statestorageValue);
             var checked = el.prop('checked');
             var val = el.val();
             if(!state.MultiSelect) {
