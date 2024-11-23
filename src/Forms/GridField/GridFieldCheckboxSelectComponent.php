@@ -4,6 +4,8 @@ namespace MarkGuinn\GridfieldMultiselect\Forms\GridField;
 use SilverStripe\Forms\GridField\GridField_ColumnProvider;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\DataObject;
 
 /**
  * Gives each row a checkbox which can be paired with various
@@ -43,7 +45,7 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
      * @see {@link GridFieldDataColumns}.
      *
      * @param GridField $gridField
-     * @param array - List reference of all column names.
+     * @param array $columns List reference of all column names.
      */
     public function augmentColumns($gridField, &$columns)
     {
@@ -73,7 +75,7 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
      * @param  GridField $gridField
      * @param  DataObject $record - Record displayed in this row
      * @param  string $columnName
-     * @return string - HTML for the column. Return NULL to skip.
+     * @return string|null HTML for the column. Return NULL to skip.
      */
     public function getColumnContent($gridField, $record, $columnName)
     {
@@ -81,9 +83,8 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
             return '<input class="multiselect no-change-track" type="checkbox"
 					name="' . $columnName . '[' . $record->ID . ']"
 					value="' . $record->ID . '">';
-        } else {
-            return null;
         }
+        return null;
     }
 
 
@@ -93,7 +94,7 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
      *
      * @param GridField $gridField
      * @param string $column
-     * @return array - Map of arbitrary metadata identifiers to their values.
+     * @return array Map of arbitrary metadata identifiers to their values.
      */
     public function getColumnMetadata($gridField, $column)
     {
@@ -104,6 +105,7 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
 								title="' . htmlentities($title) . '">',
             ];
         }
+        return [];
     }
 
 

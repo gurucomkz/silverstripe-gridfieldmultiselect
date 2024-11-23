@@ -7,8 +7,10 @@ use SilverStripe\Forms\GridField\GridField_URLHandler;
 use SilverStripe\Forms\GridField\GridField_FormAction;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\HTTPResponse;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\SS_List;
 
 /**
  *
@@ -72,7 +74,7 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
      */
     public function getHTMLFragments($gridField)
     {
-        $button = new GridField_FormAction($gridField, $this->actionName, $this->buttonText, $this->actionName, null);
+        $button = new GridField_FormAction($gridField, $this->actionName, $this->buttonText, $this->actionName, []);
         $button->addExtraClass('multiselect-button btn');
 
         if (!empty($this->buttonConfig['icon'])) {
@@ -102,8 +104,8 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
      * There is no namespacing on these actions, so you need to ensure that
      * they don't conflict with other components.
      *
-     * @param GridField
-     * @return Array with action identifier strings.
+     * @param GridField $gridField
+     * @return array with action identifier strings.
      */
     public function getActions($gridField)
     {
@@ -117,10 +119,10 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
      * Calls ALL components for every action handled, so the component needs
      * to ensure it only accepts actions it is actually supposed to handle.
      *
-     * @param GridField
-     * @param String Action identifier, see {@link getActions()}.
-     * @param Array  Arguments relevant for this
-     * @param Array  All form data
+     * @param GridField $gridField
+     * @param string $actionName Action identifier, see {@link getActions()}.
+     * @param array $arguments Arguments relevant for this
+     * @param array $data All form data
      * @return array
      */
     public function handleAction(GridField $gridField, $actionName, $arguments, $data)
@@ -128,6 +130,7 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
         if ($actionName === $this->actionName) {
             return $this->handleIt($gridField, $data);
         }
+        return [];
     }
 
 

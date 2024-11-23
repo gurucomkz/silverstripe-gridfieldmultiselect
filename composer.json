@@ -15,7 +15,8 @@
         ]
 	},
 	"require": {
-		"silverstripe/framework": "^5.0"
+		"silverstripe/framework": "^5.0",
+		"silverstripe/versioned": "^2.3"
     },
     "autoload": {
         "psr-4": {

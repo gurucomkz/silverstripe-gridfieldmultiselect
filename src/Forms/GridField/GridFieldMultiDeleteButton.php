@@ -1,6 +1,9 @@
 <?php
 namespace MarkGuinn\GridfieldMultiselect\Forms\GridField;
 
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Versioned\Versioned;
+
 /**
  * Button to delete every checked row. The only confirmation
  * would be via javascript.
@@ -30,6 +33,7 @@ class GridFieldMultiDeleteButton extends GridFieldApplyToMultipleRows
     public function deleteRecord($record, $index)
     {
         if ($record->hasExtension('Versioned')) {
+            /** @var Versioned $record */
             $record->deleteFromStage('Stage');
             $record->deleteFromStage('Live');
         } else {
