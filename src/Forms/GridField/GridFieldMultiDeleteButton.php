@@ -16,11 +16,11 @@ class GridFieldMultiDeleteButton extends GridFieldApplyToMultipleRows
      */
     public function __construct($targetFragment = 'after')
     {
-        parent::__construct('deleteselected', _t('GridFieldMultiDeleteButton.ButtonText', 'Delete Selected'), array($this, 'deleteRecord'), $targetFragment, array(
+        parent::__construct('deleteselected', _t('GridFieldMultiDeleteButton.ButtonText', 'Delete Selected'), [$this, 'deleteRecord'], $targetFragment, [
             'icon'    => 'delete',
             'class'   => 'deleteSelected btn-danger',
             'confirm' => _t('GridFieldMultiDeleteButton.Confirm', 'Are you sure you want to delete all selected items?'),
-        ));
+        ]);
     }
 
     /**

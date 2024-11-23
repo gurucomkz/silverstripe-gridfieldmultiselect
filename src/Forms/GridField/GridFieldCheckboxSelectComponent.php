@@ -48,9 +48,9 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
     public function augmentColumns($gridField, &$columns)
     {
         if (Config::inst()->get(__CLASS__, 'prepend_column')) {
-		    array_unshift($columns, self::CHECKBOX_COLUMN);
+            array_unshift($columns, self::CHECKBOX_COLUMN);
         } else {
-		    $columns[] = self::CHECKBOX_COLUMN;
+            $columns[] = self::CHECKBOX_COLUMN;
         }
     }
 
@@ -63,7 +63,7 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
      */
     public function getColumnsHandled($gridField)
     {
-        return array(self::CHECKBOX_COLUMN);
+        return [self::CHECKBOX_COLUMN];
     }
 
 
@@ -99,10 +99,10 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
     {
         if ($column === self::CHECKBOX_COLUMN) {
             $title = _t('GridFieldMultiSelect.SelectAllVisibleRows', 'Select all visible rows');
-            return array(
+            return [
                 'title' => '<input class="multiselect-all no-change-track" type="checkbox"
 								title="' . htmlentities($title) . '">',
-            );
+            ];
         }
     }
 
@@ -117,6 +117,6 @@ class GridFieldCheckboxSelectComponent implements GridField_ColumnProvider
      */
     public function getColumnAttributes($gridField, $record, $columnName)
     {
-        return array('class' => 'col-checkbox grid-field__col-compact');
+        return ['class' => 'col-checkbox grid-field__col-compact'];
     }
 }

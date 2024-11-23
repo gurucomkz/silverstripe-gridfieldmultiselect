@@ -42,7 +42,7 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
      * @param string $targetFragment
      * @param array $buttonConfig - icon, class, possibly others
      */
-    public function __construct($actionName, $buttonText, $rowHandler, $targetFragment = 'after', $buttonConfig = array())
+    public function __construct($actionName, $buttonText, $rowHandler, $targetFragment = 'after', $buttonConfig = [])
     {
         $this->actionName = $actionName;
         $this->buttonText = $buttonText;
@@ -87,9 +87,9 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
             $button->setAttribute('data-confirm', $this->buttonConfig['confirm']);
         }
 
-        return array(
+        return [
             $this->targetFragment => $button->Field(),
-        );
+        ];
     }
 
 
@@ -107,7 +107,7 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
      */
     public function getActions($gridField)
     {
-        return array($this->actionName);
+        return [$this->actionName];
     }
 
 
@@ -140,9 +140,9 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
      */
     public function getURLHandlers($gridField)
     {
-        return array(
+        return [
             $this->actionName => 'handleIt'
-        );
+        ];
     }
 
 
@@ -151,7 +151,7 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
      * @param array|HTTPRequest $data
      * @return array
      */
-    public function handleIt($gridField, $data = array())
+    public function handleIt($gridField, $data = [])
     {
         if ($data instanceof HTTPRequest) {
             $data = $data->requestVars();
@@ -159,13 +159,13 @@ class GridFieldApplyToMultipleRows implements GridField_HTMLProvider, GridField_
 
         // Separate out the ID list from the checkboxes
         $fieldName = GridFieldCheckboxSelectComponent::CHECKBOX_COLUMN;
-        $ids = isset($data[$fieldName]) && is_array($data[$fieldName]) ? $data[$fieldName] : array();
+        $ids = isset($data[$fieldName]) && is_array($data[$fieldName]) ? $data[$fieldName] : [];
         $class = $gridField->getModelClass();
         if (!$class) {
             user_error('No model class is defined!');
         }
 
-        $response = array();
+        $response = [];
 
         // Hook for subclasses
         $this->onBeforeList($gridField, $data, $ids);
